@@ -130,7 +130,7 @@ export default function HomePage() {
         </div>
       </header>
       <div className="w-full flex-1 p-4">
-        <div className="border w-full h-full rounded-lg overflow-hidden relative">
+        <div className="border-[3px] border-dashed w-full h-full rounded-lg overflow-hidden relative">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/80">
               <LoaderIcon className="animate-spin text-neutral-400 w-8" />
