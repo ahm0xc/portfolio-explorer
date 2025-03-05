@@ -7,6 +7,7 @@ import {
   ArrowRightIcon,
   CheckIcon,
   CopyIcon,
+  LoaderIcon,
 } from "lucide-react";
 import useLocalStorage from "use-local-storage";
 
@@ -16,18 +17,21 @@ import { portfolioLinks } from "~/data/portfolios";
 export default function HomePage() {
   const [view, setView] = React.useState<"all">("all");
   const [copiedLink, setCopiedLink] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const [currentPortfolioIndex, setCurrentPortfolioIndex] =
     useLocalStorage<number>("current-portfolio-index", 0);
 
   function handleBack() {
     if (currentPortfolioIndex !== null && currentPortfolioIndex > 0) {
+      setIsLoading(true);
       setCurrentPortfolioIndex(currentPortfolioIndex - 1);
     }
   }
 
   function handleForward() {
     if (currentPortfolioIndex < portfolioLinks.length - 1) {
+      setIsLoading(true);
       setCurrentPortfolioIndex(currentPortfolioIndex + 1);
     }
   }
@@ -83,10 +87,32 @@ export default function HomePage() {
         </div>
       </header>
       <div className="w-full flex-1 p-4">
-        <div className="border w-full h-full rounded-lg overflow-hidden">
+        <div className="border w-full h-full rounded-lg overflow-hidden relative">
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+              <LoaderIcon className="animate-spin text-neutral-400 w-8" />
+            </div>
+          )}
           <iframe
             src={portfolioLinks[currentPortfolioIndex]}
             className="w-full h-full"
+            onLoad={(e) => {
+              const iframe = e.target as HTMLIFrameElement;
+              try {
+                // Access the iframe's document to check if it's loaded
+                if (iframe.contentDocument?.readyState === "complete") {
+                  setIsLoading(false);
+                } else {
+                  iframe.contentWindow?.addEventListener("load", () => {
+                    setIsLoading(false);
+                  });
+                }
+              } catch (error) {
+                // If we can't access the iframe content (due to same-origin policy),
+                // just hide the loading state
+                setIsLoading(false);
+              }
+            }}
           />
         </div>
       </div>
