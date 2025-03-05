@@ -58,8 +58,7 @@ export default function HomePage() {
             <ArrowLeftIcon className="!w-3" />
           </Button>
           <p className="text-neutral-400 text-sm">
-            {currentPortfolioIndex !== null ? currentPortfolioIndex + 1 : 0} of{" "}
-            {portfolioLinks.length}
+            {currentPortfolioIndex + 1} of {portfolioLinks.length}
           </p>
           <Button
             size="icon"
@@ -85,12 +84,10 @@ export default function HomePage() {
       </header>
       <div className="w-full flex-1 p-4">
         <div className="border w-full h-full rounded-lg overflow-hidden">
-          {currentPortfolioIndex !== null && (
-            <iframe
-              src={portfolioLinks[currentPortfolioIndex]}
-              className="w-full h-full"
-            />
-          )}
+          <iframe
+            src={portfolioLinks[currentPortfolioIndex]}
+            className="w-full h-full"
+          />
         </div>
       </div>
     </div>
