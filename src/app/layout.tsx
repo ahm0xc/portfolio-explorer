@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { GeistSans } from "geist/font/sans";
 
+import Analytics from "~/components/analytics";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       </head>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Analytics />
       </body>
     </html>
   );
