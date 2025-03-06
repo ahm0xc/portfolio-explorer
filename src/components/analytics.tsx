@@ -9,6 +9,7 @@ export default function Analytics() {
     <Loglib
       config={{
         id: "xportfolio-explorer",
+        host: "/api/loglib",
       }}
     />
   );

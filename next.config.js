@@ -12,6 +12,14 @@ const config = {
   experimental: {
     reactCompiler: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/loglib",
+        destination: "https://loglib.io/api/loglib",
+      },
+    ];
+  },
 };
 
 export default config;
