@@ -10,9 +10,12 @@ import {
   CopyIcon,
   DicesIcon,
   LoaderIcon,
+  ShareIcon,
 } from "lucide-react";
+import { TwitterShareButton } from "react-share";
 import useLocalStorage from "use-local-storage";
 
+import { Icons } from "~/components/icons";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { portfolioLinks } from "~/data/portfolios";
@@ -91,8 +94,12 @@ export default function HomePage() {
 
   return (
     <div className="h-screen flex flex-col">
-      <header className="flex items-center justify-center pt-4 flex-col">
-        <div className="flex items-center gap-2 w-full justify-center">
+      <header className="flex items-center justify-between pt-4 px-4 md:px-8">
+        <div className="flex items-center gap-2 text-neutral-300">
+          <Icons.logo className="w-6 h-6" />
+          <span className="text-lg font-semibold">XPortfolio Explorer</span>
+        </div>
+        <div className="flex items-center gap-2 justify-center">
           <Button
             variant="outline"
             className="h-7 text-neutral-400 px-2"
@@ -118,7 +125,7 @@ export default function HomePage() {
               onChange={handleInputChange}
               onKeyDown={handleInputKeyDown}
               onBlur={handleInputBlur}
-              className="h-7 w-16 text-center text-sm"
+              className="h-7 w-20 text-center text-sm"
             />
             <span className="text-neutral-400 text-sm">
               of {portfolioLinks.length}
@@ -144,7 +151,17 @@ export default function HomePage() {
             )}
             Copy Link
           </Button>
+          <TwitterShareButton
+            url={portfolioLinks[currentPortfolioIndex] ?? ""}
+            title="Check out this amazing portfolio"
+          >
+            <Button variant="outline" className="h-7 text-neutral-400 px-2">
+              <ShareIcon className="!w-3" />
+              Share on X
+            </Button>
+          </TwitterShareButton>
         </div>
+        <div></div>
       </header>
       <div className="w-full flex-1 p-4">
         <div className="border-[3px] border-dashed w-full h-full rounded-lg overflow-hidden relative">
