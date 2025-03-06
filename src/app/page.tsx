@@ -7,6 +7,7 @@ import {
   ArrowRightIcon,
   CheckIcon,
   CopyIcon,
+  DicesIcon,
   LoaderIcon,
 } from "lucide-react";
 import useLocalStorage from "use-local-storage";
@@ -76,6 +77,11 @@ export default function HomePage() {
     }, 2000);
   }
 
+  function handleRandom() {
+    setIsLoading(true);
+    setCurrentPortfolioIndex(Math.floor(Math.random() * portfolioLinks.length));
+  }
+
   const isCopied =
     currentPortfolioIndex &&
     copiedLink === portfolioLinks[currentPortfolioIndex];
@@ -84,6 +90,14 @@ export default function HomePage() {
     <div className="h-screen flex flex-col">
       <header className="flex items-center justify-center pt-4 flex-col">
         <div className="flex items-center gap-2 w-full justify-center">
+          <Button
+            variant="outline"
+            className="h-7 text-neutral-400 px-2"
+            onClick={handleRandom}
+          >
+            <DicesIcon className="!w-3" />
+            Random
+          </Button>
           <Button
             size="icon"
             variant="outline"
