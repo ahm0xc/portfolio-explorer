@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import { loglib } from "@loglib/tracker";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -69,6 +70,7 @@ export default function HomePage() {
   }
 
   function handleCopyLink() {
+    loglib.track("copy-portfolio-link-button-clicked");
     navigator.clipboard.writeText(portfolioLinks[currentPortfolioIndex] ?? "");
     setCopiedLink(portfolioLinks[currentPortfolioIndex] ?? null);
 
@@ -78,6 +80,7 @@ export default function HomePage() {
   }
 
   function handleRandom() {
+    loglib.track("random-portfolio-button-clicked");
     setIsLoading(true);
     setCurrentPortfolioIndex(Math.floor(Math.random() * portfolioLinks.length));
   }
