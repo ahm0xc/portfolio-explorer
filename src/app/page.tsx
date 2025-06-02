@@ -91,77 +91,91 @@ export default function HomePage() {
 
   return (
     <div className="h-screen flex flex-col">
-      <header className="flex items-center justify-between pt-4 px-4 md:px-8">
-        <div className="flex items-center gap-2 text-neutral-300">
-          <Icons.logo className="w-6 h-6" />
-          <span className="text-lg font-semibold">XPortfolio Explorer</span>
-        </div>
-        <div className="flex items-center gap-2 justify-center">
-          <Button
-            variant="outline"
-            className="h-7 text-neutral-400 px-2"
-            onClick={handleRandom}
-          >
-            <DicesIcon className="!w-3" />
-            Random
-          </Button>
-          <Button
-            size="icon"
-            variant="outline"
-            className="h-7 w-7 text-neutral-400"
-            onClick={handleBack}
-          >
-            <ArrowLeftIcon className="!w-3" />
-          </Button>
-          <div className="flex items-center gap-1">
-            <Input
-              type="number"
-              min={1}
-              max={portfolioLinks.length}
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleInputKeyDown}
-              onBlur={handleInputBlur}
-              className="h-7 w-20 text-center text-sm"
-            />
-            <span className="text-neutral-400 text-sm">
-              of {portfolioLinks.length}
-            </span>
+      <header className="pt-4 px-4 md:px-8 space-y-3 md:space-y-0">
+        {/* Logo row */}
+        <div className="flex items-center justify-center md:justify-start">
+          <div className="flex items-center gap-2 text-neutral-300">
+            <Icons.logo className="w-6 h-6" />
+            <span className="text-lg font-semibold">XPortfolio Explorer</span>
           </div>
-          <Button
-            size="icon"
-            variant="outline"
-            className="h-7 w-7 text-neutral-400"
-            onClick={handleForward}
-          >
-            <ArrowRightIcon className="!w-3" />
-          </Button>
-          <Button
-            variant="outline"
-            className="h-7 text-neutral-400 px-2"
-            onClick={handleCopyLink}
-          >
-            {isCopied ? (
-              <CheckIcon className="!w-3" />
-            ) : (
-              <CopyIcon className="!w-3" />
-            )}
-            Copy Link
-          </Button>
-          <TwitterShareButton
-            url={portfolioLinks[currentPortfolioIndex] ?? ""}
-            title="Check out this amazing portfolio"
-          >
-            <Button variant="outline" className="h-7 text-neutral-400 px-2">
-              <ShareIcon className="!w-3" />
-              Share on X
-            </Button>
-          </TwitterShareButton>
         </div>
-        <div></div>
+
+        {/* Navigation controls */}
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-center">
+          {/* Top row on mobile: Random + Navigation */}
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              className="h-8 md:h-7 text-neutral-400 px-3 text-xs md:text-sm"
+              onClick={handleRandom}
+            >
+              <DicesIcon className="!w-3" />
+              <span className="hidden sm:inline ml-1">Random</span>
+            </Button>
+            <Button
+              size="icon"
+              variant="outline"
+              className="h-8 w-8 md:h-7 md:w-7 text-neutral-400"
+              onClick={handleBack}
+            >
+              <ArrowLeftIcon className="!w-3" />
+            </Button>
+            <div className="flex items-center gap-1">
+              <Input
+                type="number"
+                min={1}
+                max={portfolioLinks.length}
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+                onBlur={handleInputBlur}
+                className="h-8 md:h-7 w-16 md:w-20 text-center text-xs md:text-sm"
+              />
+              <span className="text-neutral-400 text-xs md:text-sm whitespace-nowrap">
+                of {portfolioLinks.length}
+              </span>
+            </div>
+            <Button
+              size="icon"
+              variant="outline"
+              className="h-8 w-8 md:h-7 md:w-7 text-neutral-400"
+              onClick={handleForward}
+            >
+              <ArrowRightIcon className="!w-3" />
+            </Button>
+          </div>
+
+          {/* Bottom row on mobile: Action buttons */}
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              className="h-8 md:h-7 text-neutral-400 px-3 text-xs md:text-sm flex-1 sm:flex-none"
+              onClick={handleCopyLink}
+            >
+              {isCopied ? (
+                <CheckIcon className="!w-3" />
+              ) : (
+                <CopyIcon className="!w-3" />
+              )}
+              <span className="ml-1">Copy</span>
+            </Button>
+            <TwitterShareButton
+              url={portfolioLinks[currentPortfolioIndex] ?? ""}
+              title="Check out this amazing portfolio"
+            >
+              <Button
+                variant="outline"
+                className="h-8 md:h-7 text-neutral-400 px-3 text-xs md:text-sm flex-1 sm:flex-none"
+              >
+                <ShareIcon className="!w-3" />
+                <span className="ml-1">Share</span>
+              </Button>
+            </TwitterShareButton>
+          </div>
+        </div>
       </header>
-      <div className="w-full flex-1 p-4">
-        <div className="border-[3px] border-dashed w-full h-full rounded-lg overflow-hidden relative">
+      <div className="w-full flex-1 p-2 md:p-4">
+        <div className="border-[2px] md:border-[3px] border-dashed w-full h-full rounded-lg overflow-hidden relative">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/80">
               <LoaderIcon className="animate-spin text-neutral-400 w-8" />
